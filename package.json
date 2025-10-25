@@ -7,11 +7,13 @@
   "homepage": "https://minotaurion.io",
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "^2.76.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "chart.js": "^4.4.8",
+    "ky": "^1.13.0",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^18.3.1",

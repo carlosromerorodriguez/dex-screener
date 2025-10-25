@@ -17,12 +17,25 @@ Built on Moralis APIs + React + Tailwind CSS.
 
 ## 🛠️ Tech Stack
 
+### Core
 - **React** - Frontend framework
 - **React Router** - Client-side routing
 - **Tailwind CSS** - Modern utility-first CSS framework
-- **Chart.js** - Interactive data visualization
+- **TypeScript** - Type safety and better DX
+
+### Data & APIs
 - **Moralis API** - Blockchain data provider
+- **Supabase** - Authentication and database
+- **ky** - Modern HTTP client with retry/backoff
+
+### Visualization
+- **Chart.js** - Interactive data visualization
 - **Recharts** - Additional charting library
+
+### Infrastructure
+- **Custom Logger** - Centralized logging system
+- **Feature Flags** - Gradual feature rollouts
+- **Error Boundary** - Global error handling
 
 ## 📁 Project Structure
 
@@ -34,8 +47,20 @@ src/
 │   ├── trending/        # Trending page components
 │   ├── portfolio/       # Portfolio tracking components
 │   ├── pumpfun/         # Pump.fun integration components
-│   └── modals/          # Modal components (search, filters)
+│   ├── modals/          # Modal components (search, filters)
+│   └── common/          # Common components (ErrorBoundary) ✨
 ├── pages/               # Page components
+├── lib/                 # Core libraries ✨ NEW
+│   ├── logger.ts        # Centralized logging
+│   ├── numbers.ts       # Number formatting utilities
+│   ├── time.ts          # Time and date utilities
+│   ├── featureFlags.ts  # Feature flag system
+│   ├── http.ts          # HTTP client wrapper
+│   ├── moralisClient.ts # Typed Moralis API client
+│   └── supabase.ts      # Supabase client for auth
+├── hooks/               # Custom React hooks ✨ NEW
+│   ├── useSession.ts    # User session management
+│   └── useProfile.ts    # User profile management
 ├── services/            # API services and utilities
 ├── utils/               # Helper functions and formatters
 ├── App.js               # Main application component
