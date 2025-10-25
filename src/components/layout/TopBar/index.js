@@ -2,6 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FilterTools from "./FilterTools";
+import AuthButton from "../../auth/AuthButton";
 
 const TopBar = ({
   chainId,
@@ -68,14 +69,15 @@ const TopBar = ({
           </div>
         </div>
 
-        {/* Sorting and filtering tools */}
-        <div className="flex items-center">
+        {/* Sorting and filtering tools + Auth */}
+        <div className="flex items-center gap-3">
           <FilterTools
             isFiltered={isFiltered}
             openFiltersModal={openFiltersModal}
             sortBy={sortBy}
             onSortChange={onSortChange}
           />
+          <AuthButton />
         </div>
       </div>
     </div>

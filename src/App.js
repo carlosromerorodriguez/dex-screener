@@ -5,31 +5,46 @@ import TrendingPage from "./pages/TrendingPage";
 import TokenPage from "./pages/TokenPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import PumpFunPage from "./pages/PumpFunPage";
+import ProfilePage from "./pages/ProfilePage";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AuthModal from "./components/auth/AuthModal";
+import ErrorBoundary from "./components/common/ErrorBoundary";
+import { ToastProvider } from "./components/common/Toaster";
 
 /**
  * App - Componente raíz de MINOTAURION ⚡
  * 
- * Todas las rutas están envueltas en AppLayout para mantener
- * el sidebar persistente en todas las páginas.
+ * SEMANA 2: Añadido auth, perfiles y error handling
  */
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {/* Layout global que envuelve todas las rutas */}
-        <Route element={<AppLayout />}>
-          {/* Rutas principales */}
-          <Route path="/" element={<TrendingPage />} />
-          <Route path="/:chainId" element={<TrendingPage />} />
-          <Route path="/:chainId/:tokenAddress" element={<TokenPage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/pumpfun" element={<PumpFunPage />} />
-          
-          {/* Fallback: redirigir a trending */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <ToastProvider>
+        <Router>
+          <Routes>
+            {/* Layout global que envuelve todas las rutas */}
+            <Route element={<AppLayout />}>
+              {/* Rutas principales */}
+              <Route path="/" element={<TrendingPage />} />
+              <Route path="/:chainId" element={<TrendingPage />} />
+              <Route path="/:chainId/:tokenAddress" element={<TokenPage />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+              <Route path="/pumpfun" element={<PumpFunPage />} />
+              
+              {/* Rutas de perfil */}
+              <Route path="/me" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+              <Route path="/u/:username" element={<ProfilePage />} />
+              
+              {/* Fallback */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+
+          {/* Modal global de auth */}
+          <AuthModal />
+        </Router>
+      </ToastProvider>
+    </ErrorBoundary>
   );
 };
 
