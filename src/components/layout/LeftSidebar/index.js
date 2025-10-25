@@ -12,7 +12,7 @@ const LeftSidebar = ({ openSearchModal }) => {
   };
 
   return (
-    <div className="w-64 bg-dex-bg-secondary text-dex-text-primary flex flex-col border-r border-dex-border h-screen sticky top-0 overflow-y-auto">
+    <div className="flex flex-col h-full">
       <div className="p-4">
         <Link to="/" className="block">
           <div className="flex flex-col">

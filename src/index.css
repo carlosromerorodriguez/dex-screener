@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================
+   MINOTAURION ⚡ - Global Styles
+   ================================ */
+
 :root {
     --color-bg-primary: #090b12;
     --color-bg-secondary: #10131a;
@@ -16,6 +20,17 @@
     --color-green: #3fff9a;
     --color-red: #ff4b4b;
     --color-blue: #4878ff;
+  }
+
+  /* Asegurar altura completa y prevenir scroll horizontal */
+  html, body, #root {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
   }
 
   @keyframes slide-in {

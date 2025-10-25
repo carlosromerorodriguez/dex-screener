@@ -32,6 +32,8 @@ const TrendingPage = () => {
   const [isFiltersModalOpen, setFiltersModalOpen] = useState(false);
   const [isFiltered, setIsFiltered] = useState(false);
 
+  console.log("TrendingPage mounted/rendered - chainId:", chainId);
+
   // Add the handler for applying filters
   const handleApplyFilters = (filteredTokens) => {
     setTokens(filteredTokens);

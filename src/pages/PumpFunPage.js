@@ -16,6 +16,8 @@ const PumpFunPage = () => {
   const [newTokensIds, setNewTokensIds] = useState(new Set());
   const pollingInterval = useRef(null);
 
+  console.log("PumpFunPage mounted/rendered");
+
   // Load tokens on initial render
   useEffect(() => {
     fetchAllTokens();

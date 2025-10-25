@@ -34,6 +34,8 @@ const PortfolioPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  console.log("PortfolioPage mounted/rendered");
+
   // Load wallets from localStorage on initial render
   useEffect(() => {
     try {
