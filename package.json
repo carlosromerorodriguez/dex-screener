@@ -20,7 +20,8 @@
     "react-router-dom": "^7.2.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.15.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.5.7"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,16 +1,13 @@
 /**
  * useSession - Hook para gestionar sesión de usuario en MINOTAURION ⚡
  * 
- * Características:
- * - Auto-refresh de sesión
- * - Estado de loading
- * - Sincronización con localStorage
- * - Type-safe
+ * SEMANA 2: Extendido con signIn y refreshProfile
  */
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { logger } from '../lib/logger';
+import { useAuthStore } from '../state/authStore';
 import type { Session, User } from '@supabase/supabase-js';
 
 interface UseSessionReturn {
@@ -18,8 +15,11 @@ interface UseSessionReturn {
   user: User | null;
   loading: boolean;
   error: Error | null;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (email: string, password: string, username?: string) => Promise<void>;
   signOut: () => Promise<void>;
   refreshSession: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
 }
 
 /**
@@ -91,6 +91,42 @@ export function useSession(): UseSessionReturn {
   }, []);
 
   /**
+   * Sign in con email y password
+   */
+  const handleSignIn = async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      await supabase.signInWithEmail(email, password);
+      logger.info('User signed in successfully');
+    } catch (err) {
+      logger.error('Sign in failed', err);
+      setError(err as Error);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
+   * Sign up con email y password
+   */
+  const handleSignUp = async (email: string, password: string, username?: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      await supabase.signUpWithEmail(email, password, username);
+      logger.info('User signed up successfully');
+    } catch (err) {
+      logger.error('Sign up failed', err);
+      setError(err as Error);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
    * Sign out del usuario actual
    */
   const handleSignOut = async () => {
@@ -99,6 +135,7 @@ export function useSession(): UseSessionReturn {
       await supabase.signOut();
       setSession(null);
       setUser(null);
+      useAuthStore.getState().reset();
     } catch (err) {
       logger.error('Sign out failed', err);
       setError(err as Error);
@@ -124,13 +161,30 @@ export function useSession(): UseSessionReturn {
     }
   };
 
+  /**
+   * Refresh del perfil del usuario
+   */
+  const refreshProfile = async () => {
+    if (!user?.id) return;
+    
+    try {
+      const profile = await supabase.getProfile(user.id);
+      useAuthStore.getState().setProfile(profile);
+    } catch (err) {
+      logger.error('Profile refresh failed', err);
+    }
+  };
+
   return {
     session,
     user,
     loading,
     error,
+    signInWithEmail: handleSignIn,
+    signUpWithEmail: handleSignUp,
     signOut: handleSignOut,
     refreshSession,
+    refreshProfile,
   };
 }
 
