@@ -57,7 +57,7 @@ class ErrorBoundary extends Component<Props, State> {
     });
 
     // TODO: Enviar a Sentry/Datadog en producción
-    // if (import.meta.env.PROD) {
+    // if (process.env.NODE_ENV === 'production') {
     //   Sentry.captureException(error, {
     //     contexts: {
     //       react: {
@@ -112,7 +112,7 @@ class ErrorBoundary extends Component<Props, State> {
             </div>
 
             {/* Stack trace (solo en desarrollo) */}
-            {import.meta.env.DEV && this.state.error?.stack && (
+            {process.env.NODE_ENV === 'development' && this.state.error?.stack && (
               <details className="mb-6">
                 <summary className="cursor-pointer text-dex-text-secondary hover:text-white mb-2">
                   🔍 Technical Details (Development)

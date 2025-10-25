@@ -83,7 +83,7 @@ class FeatureFlagsService {
    * Helper para leer un flag de entorno como boolean
    */
   private getEnvFlag(key: string, defaultValue: boolean): boolean {
-    const value = import.meta.env[key];
+    const value = (process.env as any)[key];
     if (value === undefined) return defaultValue;
     if (typeof value === 'boolean') return value;
     return value === 'true' || value === '1';
@@ -124,7 +124,7 @@ class FeatureFlagsService {
    * NO afecta producción ni las variables de entorno
    */
   enable(feature: keyof FeatureFlags): void {
-    if (import.meta.env.DEV) {
+    if (process.env.NODE_ENV === 'development') {
       this.flags[feature] = true;
       console.log(`[FeatureFlags] ✅ "${feature}" habilitado temporalmente`);
     } else {
@@ -136,7 +136,7 @@ class FeatureFlagsService {
    * Desactiva un feature temporalmente (solo en desarrollo)
    */
   disable(feature: keyof FeatureFlags): void {
-    if (import.meta.env.DEV) {
+    if (process.env.NODE_ENV === 'development') {
       this.flags[feature] = false;
       console.log(`[FeatureFlags] ❌ "${feature}" deshabilitado temporalmente`);
     } else {

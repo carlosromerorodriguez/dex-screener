@@ -381,7 +381,7 @@ class MoralisClient {
 // SINGLETON EXPORT
 // ============================================================================
 
-const API_KEY = import.meta.env.REACT_APP_MORALIS_API_KEY || '';
+const API_KEY = process.env.REACT_APP_MORALIS_API_KEY || '';
 
 if (!API_KEY) {
   logger.error('REACT_APP_MORALIS_API_KEY no está configurada');

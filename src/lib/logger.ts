@@ -26,14 +26,14 @@ class Logger {
 
   constructor(config?: Partial<LogConfig>) {
     this.config = {
-      level: (import.meta.env.VITE_LOG_LEVEL as LogLevel) || 'info',
+      level: (process.env.VITE_LOG_LEVEL as LogLevel) || 'info',
       enableInProduction: false,
       ...config,
     };
   }
 
   private shouldLog(level: LogLevel): boolean {
-    const isProd = import.meta.env.PROD;
+    const isProd = process.env.NODE_ENV === 'production';
     if (isProd && !this.config.enableInProduction && level !== 'error') {
       return false;
     }
@@ -84,7 +84,7 @@ class Logger {
       console.error(this.formatMessage('error', message, errorData));
       
       // TODO: Enviar a Sentry/Datadog en producción
-      // if (import.meta.env.PROD) {
+      // if (process.env.NODE_ENV === 'production') {
       //   Sentry.captureException(error);
       // }
     }
