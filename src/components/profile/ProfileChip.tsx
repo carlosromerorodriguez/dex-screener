@@ -1,11 +1,11 @@
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useWalletProfile } from "../../hooks/useWalletProfile";
-import { useWalletStats } from "../../hooks/useWalletStats";
-import Avatar from "../ui/Avatar";
-import Button from "../ui/Button";
-import { Dropdown, Item, Separator as DSep } from "../ui/DropdownMenu";
-import { useAuthStore } from "../../state/authStore";
-import { supabase } from "../../lib/supabase";
+import { useWalletProfile } from "../../hooks/useWalletProfile.ts";
+import { useWalletStats } from "../../hooks/useWalletStats.ts";
+import Avatar from "../ui/Avatar.tsx";
+import Button from "../ui/Button.tsx";
+import { Dropdown, Item, Separator as DSep } from "../ui/DropdownMenu.tsx";
+import { useAuthStore } from "../../state/authStore.ts";
+import { supabase } from "../../lib/supabase.ts";
 
 export default function ProfileChip() {
   const { publicKey, disconnect } = useWallet();
