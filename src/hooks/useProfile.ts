@@ -19,6 +19,8 @@ interface UseProfileReturn {
   error: Error | null;
   updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
   refreshProfile: () => Promise<void>;
+  checkHandleAvailability: (handle: string) => Promise<boolean>;
+  suggestHandles: (base: string) => Promise<string[]>;
 }
 
 /**
@@ -147,12 +149,55 @@ export function useProfile(): UseProfileReturn {
     };
   }, [user?.id]);
 
+  /**
+   * Verifica si un handle está disponible
+   */
+  const checkHandleAvailability = async (handle: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase.getClient()
+        .from('profiles')
+        .select('id')
+        .eq('username', handle)
+        .maybeSingle();
+
+      if (error) throw error;
+      return !data; // Disponible si no existe
+    } catch (err) {
+      logger.error('Failed to check handle availability', err);
+      return false;
+    }
+  };
+
+  /**
+   * Sugiere handles alternativos
+   */
+  const suggestHandles = async (base: string): Promise<string[]> => {
+    const suggestions = [
+      base,
+      `${base}_${Math.floor(Math.random() * 100)}`,
+      `${base}_x`,
+      `${base}_${new Date().getFullYear()}`,
+    ];
+
+    const available: string[] = [];
+    for (const suggestion of suggestions) {
+      const isAvailable = await checkHandleAvailability(suggestion);
+      if (isAvailable) {
+        available.push(suggestion);
+      }
+    }
+
+    return available.slice(0, 3);
+  };
+
   return {
     profile,
     loading,
     error,
     updateProfile,
     refreshProfile,
+    checkHandleAvailability,
+    suggestHandles,
   };
 }
 

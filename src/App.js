@@ -7,7 +7,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import PumpFunPage from "./pages/PumpFunPage";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
-import AuthModalAxiom from "./components/auth/AuthModalAxiom.tsx";
+import AuthModalV2 from "./components/auth/AuthModalV2.tsx";
 import ErrorBoundary from "./components/common/ErrorBoundary.tsx";
 import { ToastProvider } from "./components/common/Toaster.tsx";
 import { MinotaurionWalletProvider } from "./wallet/WalletProvider.tsx";
@@ -35,7 +35,7 @@ const App = () => {
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>
-            <AuthModalAxiom />
+            <AuthModalV2 />
           </Router>
         </ToastProvider>
       </MinotaurionWalletProvider>
