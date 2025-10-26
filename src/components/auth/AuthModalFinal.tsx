@@ -15,7 +15,7 @@ type HandleStatus = 'neutral' | 'taken' | 'free';
 
 export default function AuthModalFinal() {
   const store = useAuthStore();
-  const { publicKey, signMessage, wallet, disconnect } = useWallet();
+  const { publicKey, signMessage, disconnect } = useWallet();
   
   const [handle, setHandle] = useState('');
   const [handleStatus, setHandleStatus] = useState<HandleStatus>('neutral');

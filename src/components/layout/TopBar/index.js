@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FilterTools from "./FilterTools";
-import ProfileChip from "../../profile/ProfileChip";
+import ProfileChip from "../../profile/ProfileChip.tsx";
 
 const TopBar = ({
   chainId,
