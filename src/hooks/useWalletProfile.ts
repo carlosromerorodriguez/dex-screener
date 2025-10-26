@@ -36,6 +36,6 @@ export function useWalletProfile() {
     fetchProfile();
   }, [publicKey]);
 
-  return { profile, loading, refresh: fetchProfile };
+  return { profile, loading, refresh: fetchProfile, publicKey };
 }
 

@@ -61,6 +61,6 @@ export function useWalletStats() {
     };
   }, [publicKey]);
 
-  return { ...stats, loading };
+  return { ...stats, loading, publicKey };
 }
 
