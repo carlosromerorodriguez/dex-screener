@@ -1,8 +1,8 @@
 /**
- * AuthModal - Modal de autenticación estilo Axiom para MINOTAURION ⚡
+ * AuthModal - Modal de autenticación estilo premium para MINOTAURION ⚡
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useAuthStore } from '../../state/authStore.ts';
@@ -19,6 +19,7 @@ export default function AuthModalAxiom() {
   const [handle, setHandle] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handleWalletConnect = async () => {
     if (!publicKey || !signMessage) {
@@ -72,7 +73,11 @@ export default function AuthModalAxiom() {
         if (profileError) throw profileError;
 
         useAuthStore.getState().setProfile(newProfile);
-        closeAuthModal();
+        setShowConfetti(true);
+        setTimeout(() => {
+          closeAuthModal();
+          setShowConfetti(false);
+        }, 2000);
       } else {
         // Necesita completar signup
         setMode('signup');
@@ -85,104 +90,183 @@ export default function AuthModalAxiom() {
     }
   };
 
+  useEffect(() => {
+    if (!isAuthModalOpen) {
+      setError('');
+      setHandle('');
+    }
+  }, [isAuthModalOpen]);
+
   if (!isAuthModalOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-gradient-to-b from-dex-bg-secondary to-dex-bg-primary rounded-2xl max-w-md w-full p-8 border border-dex-border shadow-2xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="text-4xl mb-3">⚡</div>
-          <h2 className="text-3xl font-bold mb-2">MINOTAURION</h2>
-          <p className="text-dex-text-secondary italic">Only the Brave Trade Here</p>
-        </div>
-
-        {/* Tabs */}
-        {!publicKey && (
-          <div className="flex gap-2 mb-6 bg-dex-bg-tertiary p-1 rounded-lg">
-            <button
-              onClick={() => setMode('login')}
-              className={`flex-1 py-2 rounded-md transition-all ${
-                mode === 'login'
-                  ? 'bg-dex-accent text-black font-semibold shadow-lg'
-                  : 'text-dex-text-secondary hover:text-white'
-              }`}
+    <>
+      {/* Confetti effect */}
+      {showConfetti && (
+        <div className="fixed inset-0 pointer-events-none z-[60]">
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute animate-confetti"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: '-10px',
+                animationDelay: `${Math.random() * 0.5}s`,
+                fontSize: '20px',
+              }}
             >
-              Login
-            </button>
-            <button
-              onClick={() => setMode('signup')}
-              className={`flex-1 py-2 rounded-md transition-all ${
-                mode === 'signup'
-                  ? 'bg-dex-accent text-black font-semibold shadow-lg'
-                  : 'text-dex-text-secondary hover:text-white'
-              }`}
-            >
-              Sign Up
-            </button>
-          </div>
-        )}
-
-        {/* Wallet Button */}
-        <button
-          onClick={publicKey ? handleWalletConnect : () => setVisible(true)}
-          disabled={loading}
-          className="w-full bg-dex-accent hover:bg-yellow-600 disabled:bg-gray-600 text-black font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-yellow-500/50 mb-4"
-        >
-          {loading ? '⏳ Signing...' : publicKey ? '✍️ Sign Message' : '🦊 Connect Wallet'}
-        </button>
-
-        {/* Handle input (solo signup o si falta) */}
-        {mode === 'signup' && publicKey && (
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Choose your handle (e.g. minotaur69)"
-              value={handle}
-              onChange={(e) => setHandle(e.target.value.toLowerCase())}
-              className="w-full bg-dex-bg-tertiary border border-dex-border rounded-lg px-4 py-3 focus:outline-none focus:border-dex-accent"
-              pattern="[a-z0-9_]{3,15}"
-              required
-            />
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-3 text-red-400 text-sm mb-4">
-            {error}
-          </div>
-        )}
-
-        {/* Divider OR */}
-        <div className="flex items-center my-6">
-          <div className="flex-1 border-t border-dex-border"></div>
-          <span className="px-3 text-dex-text-tertiary text-sm">OR</span>
-          <div className="flex-1 border-t border-dex-border"></div>
+              ⚡
+            </div>
+          ))}
         </div>
+      )}
 
-        {/* Secondary options */}
-        <button
-          disabled
-          className="w-full bg-dex-bg-tertiary text-dex-text-secondary py-3 rounded-lg mb-3 cursor-not-allowed opacity-50"
+      {/* Modal */}
+      <div 
+        className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fadeIn"
+        onClick={closeAuthModal}
+      >
+        <div 
+          className="bg-[#121212] rounded-2xl max-w-md w-full p-8 border border-white/[0.08] shadow-[0_0_25px_rgba(194,155,67,0.15)] animate-scaleIn"
+          onClick={(e) => e.stopPropagation()}
         >
-          🔐 Continue with Passkey (Coming Soon)
-        </button>
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="text-5xl mb-4 animate-glow inline-block">⚡</div>
+            <h2 className="text-3xl font-semibold text-white mb-2 tracking-tight">MINOTAURION</h2>
+            <p className="text-[#C29B43] italic text-sm">Only the Brave Trade Here</p>
+          </div>
 
-        {/* Legal */}
-        <p className="text-xs text-dex-text-tertiary text-center mt-6">
-          By continuing, you agree to our Terms and Privacy Policy
-        </p>
+          {/* Tabs */}
+          {!publicKey && (
+            <div className="flex justify-between mb-6 bg-[#0B0B0C] rounded-lg border border-white/[0.08] p-1">
+              <button
+                onClick={() => setMode('login')}
+                className={`flex-1 py-2.5 px-4 rounded-md font-medium uppercase tracking-wide text-xs transition-all ${
+                  mode === 'login'
+                    ? 'bg-[#1A1A1A] text-[#C29B43] shadow-md'
+                    : 'text-[#B0B0B0] hover:text-[#FFD580]'
+                }`}
+              >
+                Login
+              </button>
+              <button
+                onClick={() => setMode('signup')}
+                className={`flex-1 py-2.5 px-4 rounded-md font-medium uppercase tracking-wide text-xs transition-all ${
+                  mode === 'signup'
+                    ? 'bg-[#1A1A1A] text-[#C29B43] shadow-md'
+                    : 'text-[#B0B0B0] hover:text-[#FFD580]'
+                }`}
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
 
-        {/* Close */}
-        <button
-          onClick={closeAuthModal}
-          className="absolute top-4 right-4 text-dex-text-secondary hover:text-white"
-        >
-          ✕
-        </button>
+          {/* Connect Wallet - CTA Principal */}
+          <button
+            onClick={publicKey ? handleWalletConnect : () => setVisible(true)}
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-[#C29B43] to-[#FFD580] hover:shadow-[0_0_20px_rgba(194,155,67,0.4)] disabled:opacity-50 disabled:cursor-not-allowed text-black font-semibold py-4 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] mb-6 animate-pulse-subtle"
+          >
+            {loading ? '⏳ Signing...' : publicKey ? '✍️ Sign Message' : '🦊 Connect Wallet'}
+          </button>
+
+          {/* Handle input */}
+          {mode === 'signup' && publicKey && (
+            <div className="mb-6">
+              <label className="block text-[#B0B0B0] text-sm font-medium mb-2">Choose your handle</label>
+              <input
+                type="text"
+                placeholder="e.g. minotaur69"
+                value={handle}
+                onChange={(e) => setHandle(e.target.value.toLowerCase())}
+                className="w-full bg-[#0B0B0C] border border-white/[0.08] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#C29B43] focus:ring-1 focus:ring-[#C29B43] transition-all"
+                pattern="[a-z0-9_]{3,15}"
+                minLength={3}
+                maxLength={15}
+                required
+              />
+              <p className="text-[#666] text-xs mt-2">3-15 characters, lowercase, numbers and underscores</p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-3 text-red-400 text-sm mb-6 animate-shake">
+              ⚠️ {error}
+            </div>
+          )}
+
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-1 border-t border-white/[0.08]"></div>
+            <span className="px-3 text-[#666] text-xs font-medium bg-[#121212]">OR</span>
+            <div className="flex-1 border-t border-white/[0.08]"></div>
+          </div>
+
+          {/* Passkey Option */}
+          <button
+            disabled
+            className="w-full bg-[#0B0B0C] text-[#666] py-3 rounded-lg mb-3 cursor-not-allowed opacity-60 border border-white/[0.05]"
+          >
+            <span className="text-[#C29B43]/50 mr-2">🔐</span>
+            Continue with Passkey <span className="text-xs">(Coming Soon)</span>
+          </button>
+
+          {/* Legal */}
+          <p className="text-[#555] text-xs text-center mt-6 leading-relaxed">
+            By continuing, you agree to our{' '}
+            <a href="/terms" className="text-[#C29B43] hover:text-[#FFD580] transition-colors">Terms</a>
+            {' '}and{' '}
+            <a href="/privacy" className="text-[#C29B43] hover:text-[#FFD580] transition-colors">Privacy Policy</a>
+          </p>
+
+          {/* Close Button */}
+          <button
+            onClick={closeAuthModal}
+            className="absolute top-4 right-4 text-[#666] hover:text-white transition-colors text-2xl leading-none"
+          >
+            ×
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* CSS Animations */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes glow {
+          0%, 100% { filter: drop-shadow(0 0 8px rgba(194, 155, 67, 0.3)); }
+          50% { filter: drop-shadow(0 0 16px rgba(194, 155, 67, 0.6)); }
+        }
+        @keyframes pulse-subtle {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(194, 155, 67, 0); }
+          50% { box-shadow: 0 0 12px 2px rgba(194, 155, 67, 0.2); }
+        }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+        @keyframes confetti {
+          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .animate-fadeIn { animation: fadeIn 0.2s ease-out; }
+        .animate-scaleIn { animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-pulse-subtle { animation: pulse-subtle 2s ease-in-out infinite; }
+        .animate-shake { animation: shake 0.3s ease-in-out; }
+        .animate-confetti { animation: confetti 2s linear forwards; }
+      `}</style>
+    </>
   );
 }
 
