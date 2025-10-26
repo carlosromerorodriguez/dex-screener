@@ -9,13 +9,18 @@ DROP POLICY IF EXISTS profiles_insert_own ON public.profiles;
 DROP POLICY IF EXISTS profiles_update_own ON public.profiles;
 DROP POLICY IF EXISTS profiles_select_all ON public.profiles;
 
--- Cambiar id a opcional (para wallets sin auth)
-ALTER TABLE public.profiles ALTER COLUMN id DROP NOT NULL;
+-- PASO 1: Eliminar la PRIMARY KEY actual (basada en id)
 ALTER TABLE public.profiles DROP CONSTRAINT IF EXISTS profiles_pkey;
-ALTER TABLE public.profiles ADD PRIMARY KEY (wallet_address);
 
--- Hacer wallet_address NOT NULL y único
+-- PASO 2: Cambiar id a opcional (ahora que no es PK)
+ALTER TABLE public.profiles ALTER COLUMN id DROP NOT NULL;
+
+-- PASO 3: Hacer wallet_address NOT NULL y crear índice único
 ALTER TABLE public.profiles ALTER COLUMN wallet_address SET NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS profiles_wallet_address_key ON public.profiles(wallet_address);
+
+-- PASO 4: Añadir PRIMARY KEY en wallet_address
+ALTER TABLE public.profiles ADD PRIMARY KEY (wallet_address);
 
 -- Policy 1: Lectura pública
 CREATE POLICY profiles_select_all
