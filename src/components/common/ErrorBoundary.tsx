@@ -9,7 +9,7 @@
  */
 
 import React, { Component, ReactNode } from 'react';
-import { logger } from '../../lib/logger';
+import { logger } from '../../lib/logger.ts';
 
 interface Props {
   children: ReactNode;

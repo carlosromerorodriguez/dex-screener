@@ -5,11 +5,11 @@ import TrendingPage from "./pages/TrendingPage";
 import TokenPage from "./pages/TokenPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import PumpFunPage from "./pages/PumpFunPage";
-import ProfilePage from "./pages/ProfilePage";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import AuthModal from "./components/auth/AuthModal";
-import ErrorBoundary from "./components/common/ErrorBoundary";
-import { ToastProvider } from "./components/common/Toaster";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import ProtectedRoute from "./routes/ProtectedRoute.tsx";
+import AuthModal from "./components/auth/AuthModal.tsx";
+import ErrorBoundary from "./components/common/ErrorBoundary.tsx";
+import { ToastProvider } from "./components/common/Toaster.tsx";
 
 /**
  * App - Componente raíz de MINOTAURION ⚡

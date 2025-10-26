@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FilterTools from "./FilterTools";
-import AuthButton from "../../auth/AuthButton";
+import AuthButton from "../../auth/AuthButton.tsx";
 
 const TopBar = ({
   chainId,

@@ -10,7 +10,7 @@
  */
 
 import ky, { type KyInstance, type Options } from 'ky';
-import { logger } from './logger';
+import { logger } from './logger.ts';
 
 export interface HttpClientConfig {
   baseUrl?: string;

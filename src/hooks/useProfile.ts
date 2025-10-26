@@ -9,9 +9,9 @@
  */
 
 import { useState, useEffect } from 'react';
-import { supabase, type UserProfile } from '../lib/supabase';
-import { logger } from '../lib/logger';
-import { useSession } from './useSession';
+import { supabase, type UserProfile } from '../lib/supabase.ts';
+import { logger } from '../lib/logger.ts';
+import { useSession } from './useSession.ts';
 
 interface UseProfileReturn {
   profile: UserProfile | null;

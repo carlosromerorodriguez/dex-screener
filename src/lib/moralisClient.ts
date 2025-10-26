@@ -9,8 +9,8 @@
  * - Cache (futuro)
  */
 
-import HttpClient from './http';
-import { logger } from './logger';
+import HttpClient from './http.ts';
+import { logger } from './logger.ts';
 
 // ============================================================================
 // TYPES & INTERFACES

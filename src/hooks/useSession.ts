@@ -5,9 +5,9 @@
  */
 
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
-import { logger } from '../lib/logger';
-import { useAuthStore } from '../state/authStore';
+import { supabase } from '../lib/supabase.ts';
+import { logger } from '../lib/logger.ts';
+import { useAuthStore } from '../state/authStore.ts';
 import type { Session, User } from '@supabase/supabase-js';
 
 interface UseSessionReturn {

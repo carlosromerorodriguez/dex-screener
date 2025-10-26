@@ -3,8 +3,8 @@
  */
 
 import React, { useState } from 'react';
-import { useAuthStore } from '../../state/authStore';
-import { useSession } from '../../hooks/useSession';
+import { useAuthStore } from '../../state/authStore.ts';
+import { useSession } from '../../hooks/useSession.ts';
 
 export default function AuthModal() {
   const { isAuthModalOpen, closeAuthModal } = useAuthStore();

@@ -3,9 +3,9 @@
  */
 
 import React, { useState } from 'react';
-import { useSession } from '../../hooks/useSession';
-import { useAuthStore } from '../../state/authStore';
-import ProfileMenu from './ProfileMenu';
+import { useSession } from '../../hooks/useSession.ts';
+import { useAuthStore } from '../../state/authStore.ts';
+import ProfileMenu from './ProfileMenu.tsx';
 
 export default function AuthButton() {
   const { user } = useSession();

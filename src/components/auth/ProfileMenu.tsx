@@ -4,7 +4,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSession } from '../../hooks/useSession';
+import { useSession } from '../../hooks/useSession.ts';
 
 interface ProfileMenuProps {
   onClose: () => void;

@@ -4,8 +4,8 @@
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSession } from './useSession';
-import { useAuthStore } from '../state/authStore';
+import { useSession } from './useSession.ts';
+import { useAuthStore } from '../state/authStore.ts';
 
 export function useRequireAuth() {
   const { user, loading } = useSession();

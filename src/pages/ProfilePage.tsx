@@ -4,9 +4,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSession } from '../hooks/useSession';
-import { supabase } from '../lib/supabase';
-import type { UserProfile } from '../lib/supabase';
+import { useSession } from '../hooks/useSession.ts';
+import { supabase } from '../lib/supabase.ts';
+import type { UserProfile } from '../lib/supabase.ts';
 
 export default function ProfilePage() {
   const { username } = useParams();

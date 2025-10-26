@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { useRequireAuth } from '../hooks/useRequireAuth';
+import { useRequireAuth } from '../hooks/useRequireAuth.ts';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
