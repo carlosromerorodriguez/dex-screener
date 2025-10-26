@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavigationMenu = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="mt-8">
       <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 px-4">

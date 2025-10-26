@@ -12,12 +12,11 @@ import bs58 from 'bs58';
 
 export default function AuthModalAxiom() {
   const { isAuthModalOpen, closeAuthModal } = useAuthStore();
-  const { publicKey, signMessage, disconnect } = useWallet();
+  const { publicKey, signMessage } = useWallet();
   const { setVisible } = useWalletModal();
   
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [handle, setHandle] = useState('');
-  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
