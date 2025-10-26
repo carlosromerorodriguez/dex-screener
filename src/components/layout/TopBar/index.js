@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FilterTools from "./FilterTools";
-import AuthButton from "../../auth/AuthButton.tsx";
+import ProfileChip from "../../profile/ProfileChip";
 
 const TopBar = ({
   chainId,
@@ -77,7 +77,7 @@ const TopBar = ({
             sortBy={sortBy}
             onSortChange={onSortChange}
           />
-          <AuthButton />
+          <ProfileChip />
         </div>
       </div>
     </div>

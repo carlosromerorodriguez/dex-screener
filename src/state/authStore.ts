@@ -40,6 +40,7 @@ interface AuthStore {
   setRememberWallet: (remember: boolean) => void;
   resetFlow: (hard?: boolean) => Promise<void>;
   closeModal: () => Promise<void>;
+  openAuthModal: () => void;
   enterGuest: () => void;
   exitGuest: () => void;
   reset: () => void;
@@ -141,4 +142,3 @@ export const useAuthStore = create<AuthStore>()(
     }
   )
 );
-
