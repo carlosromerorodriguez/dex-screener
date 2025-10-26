@@ -87,8 +87,8 @@ class SupabaseService {
    * Inicializa el cliente de Supabase
    */
   private initialize(): void {
-    const supabaseUrl = process.env.VITE_SUPABASE_URL;
-    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+    const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+    const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
       logger.warn('Supabase credentials not configured. Auth features disabled.');

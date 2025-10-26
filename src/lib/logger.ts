@@ -26,7 +26,7 @@ class Logger {
 
   constructor(config?: Partial<LogConfig>) {
     this.config = {
-      level: (process.env.VITE_LOG_LEVEL as LogLevel) || 'info',
+      level: (process.env.REACT_APP_LOG_LEVEL as LogLevel) || 'info',
       enableInProduction: false,
       ...config,
     };

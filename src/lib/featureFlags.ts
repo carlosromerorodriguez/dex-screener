@@ -51,31 +51,31 @@ class FeatureFlagsService {
   private loadFlags(): FeatureFlags {
     return {
       // Social features
-      social: this.getEnvFlag('VITE_FEATURE_SOCIAL', false),
-      chat: this.getEnvFlag('VITE_FEATURE_CHAT', false),
-      communities: this.getEnvFlag('VITE_FEATURE_COMMUNITIES', false),
+      social: this.getEnvFlag('REACT_APP_FEATURE_SOCIAL', false),
+      chat: this.getEnvFlag('REACT_APP_FEATURE_CHAT', false),
+      communities: this.getEnvFlag('REACT_APP_FEATURE_COMMUNITIES', false),
       
       // Trading features
-      trading: this.getEnvFlag('VITE_FEATURE_TRADING', false),
-      swaps: this.getEnvFlag('VITE_FEATURE_SWAPS', false),
-      limit_orders: this.getEnvFlag('VITE_FEATURE_LIMIT_ORDERS', false),
+      trading: this.getEnvFlag('REACT_APP_FEATURE_TRADING', false),
+      swaps: this.getEnvFlag('REACT_APP_FEATURE_SWAPS', false),
+      limit_orders: this.getEnvFlag('REACT_APP_FEATURE_LIMIT_ORDERS', false),
       
       // Gamification
-      badges: this.getEnvFlag('VITE_FEATURE_BADGES', false),
-      leaderboards: this.getEnvFlag('VITE_FEATURE_LEADERBOARDS', false),
-      achievements: this.getEnvFlag('VITE_FEATURE_ACHIEVEMENTS', false),
+      badges: this.getEnvFlag('REACT_APP_FLAGS_BADGES', false),
+      leaderboards: this.getEnvFlag('REACT_APP_FLAGS_LEADERBOARD', false),
+      achievements: this.getEnvFlag('REACT_APP_FEATURE_ACHIEVEMENTS', false),
       
       // Streaming
-      streaming: this.getEnvFlag('VITE_FEATURE_STREAMING', false),
-      creator_mode: this.getEnvFlag('VITE_FEATURE_CREATOR_MODE', false),
+      streaming: this.getEnvFlag('REACT_APP_FEATURE_STREAMING', false),
+      creator_mode: this.getEnvFlag('REACT_APP_FEATURE_CREATOR_MODE', false),
       
       // Analytics
-      advanced_charts: this.getEnvFlag('VITE_FEATURE_ADVANCED_CHARTS', true),
-      portfolio_analytics: this.getEnvFlag('VITE_FEATURE_PORTFOLIO_ANALYTICS', true),
+      advanced_charts: this.getEnvFlag('REACT_APP_FEATURE_ADVANCED_CHARTS', true),
+      portfolio_analytics: this.getEnvFlag('REACT_APP_FEATURE_PORTFOLIO_ANALYTICS', true),
       
       // Experimental
-      ai_insights: this.getEnvFlag('VITE_FEATURE_AI_INSIGHTS', false),
-      price_alerts: this.getEnvFlag('VITE_FEATURE_PRICE_ALERTS', false),
+      ai_insights: this.getEnvFlag('REACT_APP_FEATURE_AI_INSIGHTS', false),
+      price_alerts: this.getEnvFlag('REACT_APP_FEATURE_PRICE_ALERTS', false),
     };
   }
 

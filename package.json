@@ -29,7 +29,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tailwind:init": "tailwindcss init -p",
-    "seed:badges": "node scripts/seedBadges.mjs"
+    "seed:badges": "node scripts/seedBadges.mjs",
+    "db:login": "npx supabase login",
+    "db:link": "npx supabase link --project-ref qgxgbrhseglbnbfxqeye",
+    "db:push": "npx supabase db push",
+    "db:migrate": "node scripts/applyMigration.mjs",
+    "db:verify": "node scripts/verifySchema.mjs"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +57,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.3",
+    "supabase": "^2.53.6",
     "tailwindcss": "^3.4.17"
   }
 }

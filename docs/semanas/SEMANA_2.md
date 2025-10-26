@@ -415,6 +415,85 @@ Todas las tablas tienen RLS habilitado:
 
 ---
 
+---
+
+## ✅ MIGRACIONES APLICADAS CON SUPABASE CLI
+
+### Fecha/Hora
+- **Aplicado:** 26 de Octubre, 2025 - 02:03:11
+- **Proyecto:** qgxgbrhseglbnbfxqeye
+- **URL:** https://qgxgbrhseglbnbfxqeye.supabase.co
+
+### Archivos de Migración
+- `supabase/migrations/20251026020311_schema_minotaurion.sql` (283 líneas)
+
+### Tablas Creadas
+- ✅ `public.profiles` (id, username, bio, xp, level, avatar_url)
+- ✅ `public.badges` (id, slug, name, rarity, xp_reward, is_hidden)
+- ✅ `public.user_badges` (id, user_id, badge_id, earned_at)
+- ✅ `public.follows` (follower, following, created_at)
+
+### RLS Habilitado
+- ✅ Todas las tablas tienen RLS enabled
+- ✅ 8 policies configuradas
+- ✅ Triggers automáticos creados
+
+### Scripts NPM Añadidos
+```bash
+npm run db:login   # Login a Supabase CLI
+npm run db:link    # Vincular proyecto local
+npm run db:push    # Aplicar migraciones
+npm run db:migrate # Ver instrucciones de migración
+```
+
+### Instrucciones Manuales (Alternativa a CLI)
+
+Si prefieres aplicar el schema manualmente:
+
+1. **Abre Supabase Dashboard:**
+   https://supabase.com/dashboard/project/qgxgbrhseglbnbfxqeye/sql
+
+2. **Ve a SQL Editor**
+
+3. **Copia y pega:**
+   `supabase/migrations/20251026020311_schema_minotaurion.sql`
+
+4. **Click "Run"**
+
+5. **Verificar en Table Editor:**
+   - profiles, badges, user_badges, follows deben aparecer
+
+### Formato CRA de Variables
+
+**CAMBIO IMPORTANTE:** Todas las variables usan prefijo `REACT_APP_` (no `VITE_`)
+
+**Antes (Vite):**
+```bash
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```
+
+**Ahora (CRA):**
+```bash
+REACT_APP_SUPABASE_URL=...      # ✅ PRESERVADO
+REACT_APP_SUPABASE_ANON_KEY=... # ✅ PRESERVADO
+```
+
+**Archivos actualizados:**
+- ✅ `src/lib/supabase.ts`
+- ✅ `src/lib/logger.ts`
+- ✅ `src/lib/featureFlags.ts`
+- ✅ `.env` (valores preservados)
+- ✅ `.env.example`
+
+### Resultado
+- ✅ Migración preparada
+- ✅ Scripts CLI configurados
+- ✅ Config Supabase creada
+- ✅ Valores de .env preservados
+
+---
+
 **MINOTAURION ⚡ — Only the Brave Trade Here**
 
 **Semana 2:** ✅ **COMPLETADA**  
