@@ -5,7 +5,6 @@ import Avatar from "../ui/Avatar.tsx";
 import Button from "../ui/Button.tsx";
 import { Dropdown, Item, Separator as DSep } from "../ui/DropdownMenu.tsx";
 import { useAuthStore } from "../../state/authStore.ts";
-import { supabase } from "../../lib/supabase.ts";
 
 export default function ProfileChip() {
   const { publicKey, disconnect } = useWallet();

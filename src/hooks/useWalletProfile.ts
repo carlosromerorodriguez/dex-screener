@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../lib/supabase.ts";
 
 export function useWalletProfile() {
   const { publicKey } = useWallet();
