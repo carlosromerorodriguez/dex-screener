@@ -114,26 +114,12 @@ export default function AuthModalFinal() {
     store.goToSiws();
 
     try {
-      // 1. Crear sesión anónima en Supabase si no existe
-      let userId: string;
-      const { data: { user: existingUser } } = await supabase.getClient().auth.getUser();
-      
-      if (existingUser) {
-        userId = existingUser.id;
-      } else {
-        // Crear sesión anónima
-        const { data: anonData, error: anonError } = await supabase.getClient().auth.signInAnonymously();
-        if (anonError) throw anonError;
-        userId = anonData.user!.id;
-        console.info('Created anonymous session:', userId);
-      }
-
-      // 2. Firmar mensaje SIWS
+      // 1. Firmar mensaje SIWS primero
       const challenge = makeChallenge(publicKey.toBase58());
       const messageBytes = new TextEncoder().encode(challenge.message);
       const signature = await signMessage(messageBytes);
       
-      // 3. Verificar firma
+      // 2. Verificar firma
       const signatureBase58 = bs58.encode(signature);
       const isValid = verifySignature(publicKey.toBase58(), signatureBase58, challenge.message);
       
@@ -144,20 +130,24 @@ export default function AuthModalFinal() {
       clearNonce();
       store.goToCreating();
 
-      // 4. Crear/actualizar perfil
-      console.info('Upserting profile:', {
-        id: userId,
-        wallet_address: publicKey.toBase58(),
-        username: handle || `user_${userId.slice(0, 8)}`,
-      });
+      // 3. Buscar o crear perfil (SIN autenticación de Supabase)
+      const walletAddress = publicKey.toBase58();
+      
+      console.info('Checking/Creating profile for wallet:', walletAddress);
 
+      const { data: existingProfile } = await supabase.getClient()
+        .from('profiles')
+        .select('*')
+        .eq('wallet_address', walletAddress)
+        .maybeSingle();
+
+      // Upsert directo usando wallet_address como clave
       const { data: profile, error: profileError } = await supabase.getClient()
         .from('profiles')
         .upsert({
-          id: userId,
-          wallet_address: publicKey.toBase58(),
-          username: needsHandle ? handle : undefined,
-        }, { onConflict: 'id' })
+          wallet_address: walletAddress,
+          username: handle || existingProfile?.username || `wallet_${walletAddress.slice(0, 8)}`,
+        }, { onConflict: 'wallet_address' })
         .select()
         .single();
 
