@@ -1,10 +1,7 @@
 /**
- * Apply Migration - Aplica el schema SQL a Supabase directamente
+ * Apply Migration - Muestra instrucciones para aplicar el schema SQL
  * 
  * USO: npm run db:migrate
- * 
- * NOTA: Ejecuta el SQL del schema en Supabase.
- * Para proyectos nuevos, usa el Dashboard SQL Editor.
  */
 
 import { readFileSync } from 'fs';
@@ -13,13 +10,26 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Leer .env manualmente
+const envPath = join(__dirname, '../.env');
+let SUPABASE_URL = '';
+let SUPABASE_KEY = '';
+
+try {
+  const envContent = readFileSync(envPath, 'utf-8');
+  const urlMatch = envContent.match(/REACT_APP_SUPABASE_URL=(.+)/);
+  const keyMatch = envContent.match(/REACT_APP_SUPABASE_ANON_KEY=(.+)/);
+  
+  if (urlMatch) SUPABASE_URL = urlMatch[1].trim();
+  if (keyMatch) SUPABASE_KEY = keyMatch[1].trim();
+} catch (err) {
+  console.error('❌ Error reading .env file');
+}
+
 console.log('');
 console.log('⚡ MINOTAURION - Database Migration');
 console.log('===================================');
 console.log('');
-
-const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL;
-const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error('❌ Missing REACT_APP_SUPABASE_URL or REACT_APP_SUPABASE_ANON_KEY');
@@ -30,10 +40,6 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
 
 console.log('✅ Supabase URL:', SUPABASE_URL);
 console.log('');
-
-// Leer el archivo SQL más reciente
-const migrationsDir = join(__dirname, '../supabase/migrations');
-const files = readFileSync(migrationsDir, 'utf-8');
 
 console.log('📋 INSTRUCCIONES PARA APLICAR SCHEMA:');
 console.log('');
