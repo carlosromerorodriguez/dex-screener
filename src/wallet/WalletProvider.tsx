@@ -26,11 +26,16 @@ export const MinotaurionWalletProvider: FC<MinotaurionWalletProviderProps> = ({ 
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect={false}>
-        <WalletModalProvider>
-          {children}
-        </WalletModalProvider>
-      </WalletProvider>
+      <WalletProvider 
+        wallets={wallets} 
+        autoConnect={false} 
+        onError={(error) => console.error(error)}
+        children={
+          <WalletModalProvider>
+            {children}
+          </WalletModalProvider>
+        }
+      />
     </ConnectionProvider>
   );
 };
